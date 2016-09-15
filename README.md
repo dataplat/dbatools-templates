@@ -2,7 +2,6 @@
 Want to join in on the fun? Here are some templates to help you get started.
 
 <p align="center"><img src=https://blog.netnerds.net/wp-content/uploads/2016/05/dbatools.png></p>
-
 Before you begin..
 --------------
 Please check out the [Join Us page on dbatools.io](https://dbatools.io/join-us/). The [Guidelines](https://dbatools.io/join-us/guidelines/) are **super important**, especially the part that's titled "This is important" because it talks about how to easily add your template to your dbatools development environment.
