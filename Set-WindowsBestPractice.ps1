@@ -2,12 +2,10 @@
 {
 <#
 .SYNOPSIS
-Checks SQL Server Power Plan, which Best Practices recommends should be set to High Performance
+This is a simple template that shows a Set for a Windows-based best practice
 	
 .DESCRIPTION
-Returns $true or $false by default for one server. Returns Server name and IsBestPractice for more than one server.
-	
-Specify -Detailed for details.
+This is a simple template that shows a Set for a Windows-based best practice
 	
 If your organization uses a custom power plan that is considered best practice, specify -PowerPlan
 	
@@ -28,7 +26,7 @@ The Power Plan that you wish to use. These are validated to Windows default Noun
 If you use a custom power plan instead of Windows default, use CustomPowerPlan
 
 .NOTES 
-Original Author: You (@YourTwitter), Yourblog.net
+Original Author: You (@YourTwitter, Yourblog.net)
 
 dbatools PowerShell module (https://dbatools.io, clemaire@gmail.com)
 Copyright (C) 2016 Chrissy LeMaire
@@ -107,19 +105,22 @@ To return detailed information Nouns
 				ActivePowerPlan = $PowerPlan
 			}
 			
-			try
+			If ($Pscmdlet.ShouldProcess($server, "Setting Power Plan to $PowerPlan"))
 			{
-				Write-Verbose "Setting Power Plan to $PowerPlan"
-				$null = (Get-WmiObject -Name root\cimv2\power -ComputerName $ipaddr -Class Win32_PowerPlan -Filter "ElementName='$PowerPlan'").Activate()
+				try
+				{
+					Write-Verbose "Setting Power Plan to $PowerPlan"
+					$null = (Get-WmiObject -Name root\cimv2\power -ComputerName $ipaddr -Class Win32_PowerPlan -Filter "ElementName='$PowerPlan'").Activate()
+				}
+				catch
+				{
+					Write-Exception $_
+					Write-Warning "Couldn't set Power Plan on $server"
+					return
+				}
+				
+				return $planinfo
 			}
-			catch
-			{
-				Write-Exception $_
-				Write-Warning "Couldn't set Power Plan on $server"
-				return
-			}
-			
-			return $planinfo
 		}
 		
 		
@@ -131,17 +132,7 @@ To return detailed information Nouns
 	{
 		foreach ($server in $ComputerName)
 		{
-			if ($server -match 'Server\=')
-			{
-				Write-Verbose "Matched that value was piped from Verb-DbaNoun"
-				# I couldn't properly unwrap the output from  Verb-DbaNoun so here goes.
-				$lol = $server.Split("\;")[0]
-				$lol = $lol.TrimEnd("\}")
-				$lol = $lol.TrimStart("\@\{Server")
-				# There was some kind of parsing bug here, don't clown
-				$server = $lol.TrimStart("\=")
-			}
-			
+			# Convert SQL instance name to Windows
 			if ($server -match '\\')
 			{
 				$server = $server.Split('\\')[0]

@@ -2,9 +2,7 @@
 {
 <#
 .SYNOPSIS 
-Verb-DbaNoun migrates SQL Agent categories from one SQL Server to another. This is similar to sp_add_category.
-
-https://msdn.microsoft.com/en-us/library/ms181597.aspx
+Simple template
 
 .DESCRIPTION
 By default, all SQL Agent categories for Jobs, Operators and Alerts are copied.  
@@ -16,10 +14,7 @@ The SQL Server instance.You must have sysadmin access and server version must be
 Allows you to login to servers using SQL Logins as opposed to Windows Auth/Integrated/Trusted. 
 
 .NOTES 
-Original Author: You (@YourTwitter), Yourblog.net
-
-dbatools PowerShell module (https://dbatools.io, clemaire@gmail.com)
-Copyright (C) 2016 Chrissy LeMaire
+Original Author: You (@YourTwitter, Yourblog.net)
 
 dbatools PowerShell module (https://dbatools.io, clemaire@gmail.com)
 Copyright (C) 2016 Chrissy LeMaire

@@ -2,10 +2,10 @@
 {
 <#
 .SYNOPSIS
-Checks SQL Server Power Plan, which Best Practices recommends should be set to High Performance
+This is a simple template that shows a Test for a Windows-based best practice
 	
 .DESCRIPTION
-Returns $true or $false by default for one server. Returns Server name and IsBestPractice for more than one server.
+This is a simple template that shows a Test for a Windows-based best practice
 	
 Specify -Detailed for details.
 	
@@ -23,7 +23,7 @@ If your organization uses a custom power plan that's considered best practice, s
 Show a detailed list.
 
 .NOTES 
-Original Author: You (@YourTwitter), Yourblog.net
+Original Author: You (@YourTwitter, Yourblog.net)
 
 dbatools PowerShell module (https://dbatools.io, clemaire@gmail.com)
 Copyright (C) 2016 Chrissy LeMaire
@@ -53,7 +53,6 @@ Test-DbaNoun -ComputerName sqlserver2014a -Detailed
 To return detailed information Nouns
 	
 #>
-	[CmdletBinding(SupportsShouldProcess = $true)]
 	Param (
 		[parameter(Mandatory = $true, ValueFromPipeline = $true)]
 		[Alias("ServerInstance", "SqlInstance", "SqlServer")]
@@ -165,7 +164,8 @@ To return detailed information Nouns
 		{
 			return $collection
 		}
-		elseif ($processed.Count -gt 1)
+		
+		if ($processed.Count -gt 1)
 		{
 			$newcollection = @()
 			foreach ($computer in $collection)
@@ -181,10 +181,7 @@ To return detailed information Nouns
 		}
 		else
 		{
-			foreach ($computer in $collection)
-			{
-				return $computer.IsBestPractice
-			}
+			return $collection.IsBestPractice
 		}
 	}
 }

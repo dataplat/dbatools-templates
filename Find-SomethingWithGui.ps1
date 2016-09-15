@@ -2,10 +2,10 @@
 {
 <#
 .SYNOPSIS
-Find Unused indexes
-
+This is a simple template that finds stuff and optionally has a GUI
+	
 .DESCRIPTION
-This command will help you to find Unused indexes on a database or a list of databases
+This is a simple template that finds stuff and has a GUI
 
 Also tells how much space you can save by dropping the index.
 We show the type of compression so you can make a more considered decision.
@@ -45,23 +45,16 @@ Do not overwrite file
 Append to file
 
 .NOTES 
-Original Author: You (@YourTwitter), Yourblog.net
+Original Author: You (@YourTwitter, Yourblog.net)
 
 dbatools PowerShell module (https://dbatools.io, clemaire@gmail.com)
 Copyright (C) 2016 Chrissy LeMaire
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 .LINK
 https://dbatools.io/Verb-DbaNoun
