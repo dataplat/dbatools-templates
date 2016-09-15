@@ -5,7 +5,9 @@ Want to join in on the fun? Here are some templates to help you get started.
 
 Before you begin..
 --------------
-Please check out the [Join Us page on dbatools.io](https://dbatools.io/join-us/). The [Guidelines](https://dbatools.io/join-us/guidelines/) are **super important**, and you may also be interested in our [Trello board](https://dbatools.io/trello/).
+Please check out the [Join Us page on dbatools.io](https://dbatools.io/join-us/). The [Guidelines](https://dbatools.io/join-us/guidelines/) are **super important**, especially the part that's titled "This is important" because it talks about how to easily add your template to your dbatools development environment.
+
+You may also be interested in our [Trello board](https://dbatools.io/trello/).
 
 We're also on Slack
 --------------
