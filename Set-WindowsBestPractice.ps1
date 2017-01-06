@@ -122,10 +122,6 @@ To return detailed information Nouns
 				return $planinfo
 			}
 		}
-		
-		
-		$collection = New-Object System.Collections.ArrayList
-		$processed = New-Object System.Collections.ArrayList
 	}
 	
 	PROCESS
@@ -152,17 +148,12 @@ To return detailed information Nouns
 			
 			if ($data.Count -gt 1)
 			{
-				$data.GetEnumerator() | ForEach-Object { $null = $collection.Add($_) }
+				$data.GetEnumerator() | ForEach-Object { $_ }
 			}
 			else
 			{
-				$null = $collection.Add($data)
+				$data
 			}
 		}
-	}
-	
-	END
-	{
-		return $collection
 	}
 }
