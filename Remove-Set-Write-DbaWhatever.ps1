@@ -1,57 +1,59 @@
 ﻿Function Remove-DbaDatabase {
     <#
-.SYNOPSIS
-Drops a database, hopefully even the really stuck ones.
+	.SYNOPSIS
+	Drops a database, hopefully even the really stuck ones.
 
-.DESCRIPTION
-Tries a bunch of different ways to remove a database or two or more.
+	.DESCRIPTION
+	Tries a bunch of different ways to remove a database or two or more.
 
-.PARAMETER SqlInstance
-The SQL Server instance holding the databases to be removed.You must have sysadmin access and server version must be SQL Server version 2000 or higher.
+	.PARAMETER SqlInstance
+	The SQL Server instance holding the databases to be removed.You must have sysadmin access and server version must be SQL Server version 2000 or higher.
 
-.PARAMETER SqlCredential
-Allows you to login to servers using SQL Logins as opposed to Windows Auth/Integrated/Trusted.
+	.PARAMETER SqlCredential
+	Allows you to login to servers using SQL Logins as opposed to Windows Auth/Integrated/Trusted.
 
-$scred = Get-Credential, then pass $scred object to the -SqlCredential parameter. 
+	$scred = Get-Credential, then pass $scred object to the -SqlCredential parameter. 
 
-Windows Authentication will be used if SqlCredential is not specified. SQL Server does not accept Windows credentials being passed as credentials. To connect as a different Windows user, run PowerShell as that user.
+	Windows Authentication will be used if SqlCredential is not specified. SQL Server does not accept Windows credentials being passed as credentials. To connect as a different Windows user, run PowerShell as that user.
 
-.PARAMETER Databases
-The database name to remove or an array of database names eg $Databases = 'DB1','DB2','DB3'
+	.PARAMETER Databases
+	The database name to remove or an array of database names eg $Databases = 'DB1','DB2','DB3'
 
-.PARAMETER WhatIf 
-Shows what would happen if the command were to run. No actions are actually performed. 
+	.PARAMETER WhatIf 
+	Shows what would happen if the command were to run. No actions are actually performed. 
 
-.PARAMETER Confirm 
-Prompts you for confirmation before executing any changing operations within the command. 
+	.PARAMETER Confirm 
+	Prompts you for confirmation before executing any changing operations within the command. 
 
-.PARAMETER Silent 
-Use this switch to disable any kind of verbose messages
+	.PARAMETER Silent 
+	Use this switch to disable any kind of verbose messages
 
-.NOTES
-Tags: Delete
-
-dbatools PowerShell module (https://dbatools.io, clemaire@gmail.com)
-Copyright (C) 2016 Chrissy LeMaire
-
-.LINK
-https://dbatools.io/Remove-DbaDatabase
-
-.EXAMPLE 
-Remove-DbaDatabase -SqlInstance sql2016 -Databases containeddb
-
-Prompts then removes the database containeddb on SQL Server sql2016
+	.NOTES
+	Original Author: FirstName LastName (@twitterhandle and/or website)
+	Tags: Migration, Backup
 	
-.EXAMPLE 
-Remove-DbaDatabase -SqlInstance sql2016 -Databases containeddb, mydb
-	
-Prompts then removes the databases containeddb and mydb on SQL Server sql2016
-	
-.EXAMPLE 
-Remove-DbaDatabase -SqlInstance sql2016 -Databases containeddb -Confirm:$false
+	Website: https://dbatools.io
+	Copyright: (C) Chrissy LeMaire, clemaire@gmail.com
+	License: GNU GPL v3 https://opensource.org/licenses/GPL-3.0
 
-Does not prompt and swiftly removes containeddb on SQL Server sql2016
-#>
+	.LINK
+	https://dbatools.io/Remove-DbaDatabase
+
+	.EXAMPLE 
+	Remove-DbaDatabase -SqlInstance sql2016 -Databases containeddb
+
+	Prompts then removes the database containeddb on SQL Server sql2016
+		
+	.EXAMPLE 
+	Remove-DbaDatabase -SqlInstance sql2016 -Databases containeddb, mydb
+		
+	Prompts then removes the databases containeddb and mydb on SQL Server sql2016
+		
+	.EXAMPLE 
+	Remove-DbaDatabase -SqlInstance sql2016 -Databases containeddb -Confirm:$false
+
+	Does not prompt and swiftly removes containeddb on SQL Server sql2016
+	#>
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
     Param (
         [parameter(Mandatory = $true, ValueFromPipeline = $true)]
