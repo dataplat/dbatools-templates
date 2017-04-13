@@ -55,7 +55,7 @@
 	Does not prompt and swiftly removes containeddb on SQL Server sql2016
 	#>
     [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Low')]
-    Param (
+    param (
         [parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [Alias("ServerInstance", "SqlServer")]
         [object[]]$SqlInstance,
@@ -64,9 +64,9 @@
         [switch]$Silent
     )
 	
-    DynamicParam { if ($SqlInstance) { return Get-ParamSqlDatabases -SqlServer $SqlInstance[0] -SqlCredential $SqlCredential } }
+    dynamicparam { if ($SqlInstance) { return Get-ParamSqlDatabases -SqlServer $SqlInstance[0] -SqlCredential $SqlCredential } }
 	
-    BEGIN {
+    begin {
         $databases = $psboundparameters.Databases
 		
         if (-not $databases) {
@@ -74,7 +74,7 @@
         }
     }
 	
-    PROCESS {
+    process {
         if (Test-FunctionInterrupt) { return }
 		
         foreach ($instance in $SqlInstance) {
