@@ -8,8 +8,6 @@ Before you begin..
 
 Please check out the [Join Us page on dbatools.io](https://dbatools.io/join-us/). The [Guidelines](https://dbatools.io/join-us/guidelines/) are **super important**, especially the part that's titled "This is important" because it talks about how to easily add your template to your dbatools development environment.
 
-You may also be interested in our [Trello board](https://dbatools.io/trello/).
-
 We're also on Slack
 --------------
 A number of us are on the <a href="https://sqlcommunity.slack.com">SQL Server Community Slack</a> in the #dbatools channel. Need an invite? Check out the <a href="https://dbatools.io/slack/">self-invite page</a>.
