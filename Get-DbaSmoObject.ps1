@@ -71,9 +71,9 @@ FUNCTION Get-DbaJobCategory {
 			
             foreach ($object in $categories) {
 		Write-Message -Level Verbose -Message "Processing $object"
-                Add-Member -InputObject $object -MemberType NoteProperty ComputerName -value $sever.NetName
-                Add-Member -InputObject $object -MemberType NoteProperty InstanceName -value $sever.ServiceName
-                Add-Member -InputObject $object -MemberType NoteProperty SqlInstance -value $sever.DomainInstanceName
+                Add-Member -InputObject $object -MemberType NoteProperty ComputerName -value $server.NetName
+                Add-Member -InputObject $object -MemberType NoteProperty InstanceName -value $server.ServiceName
+                Add-Member -InputObject $object -MemberType NoteProperty SqlInstance -value $server.DomainInstanceName
 				
 		# Select all of the columns you'd like to show
                 Select-DefaultView -InputObject $object -Property ComputerName, InstanceName, SqlInstance, ID, Name, Whatever, Whatever2
