@@ -17,7 +17,7 @@
 	Windows Authentication will be used if SqlCredential is not specified. SQL Server does not accept Windows credentials being passed as credentials. To connect as a different Windows user, run PowerShell as that user.
 
 	.PARAMETER Databases
-	The database name to remove or an array of database names eg $Databases = 'DB1','DB2','DB3'
+	The database name to remove or an array of database names eg $database = 'DB1','DB2','DB3'
 
 	.PARAMETER WhatIf 
 	Shows what would happen if the command were to run. No actions are actually performed. 
@@ -40,17 +40,17 @@
 	https://dbatools.io/Remove-DbaDatabase
 
 	.EXAMPLE 
-	Remove-DbaDatabase -SqlInstance sql2016 -Databases containeddb
+	Remove-DbaDatabase -SqlInstance sql2016 -Database containeddb
 
 	Prompts then removes the database containeddb on SQL Server sql2016
 		
 	.EXAMPLE 
-	Remove-DbaDatabase -SqlInstance sql2016 -Databases containeddb, mydb
+	Remove-DbaDatabase -SqlInstance sql2016 -Database containeddb, mydb
 		
 	Prompts then removes the databases containeddb and mydb on SQL Server sql2016
 		
 	.EXAMPLE 
-	Remove-DbaDatabase -SqlInstance sql2016 -Databases containeddb -Confirm:$false
+	Remove-DbaDatabase -SqlInstance sql2016 -Database containeddb -Confirm:$false
 
 	Does not prompt and swiftly removes containeddb on SQL Server sql2016
 	#>
@@ -58,37 +58,29 @@
     param (
         [parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [Alias("ServerInstance", "SqlServer")]
-        [object[]]$SqlInstance,
+        [DbaInstanceParameter[]]$SqlInstance,
         [parameter(Mandatory = $false)]
-        [object]$SqlCredential,
+		[Alias("Credential")]
+		[PSCredential][System.Management.Automation.CredentialAttribute()]
+		$SqlCredential,
+		parameter(Mandatory)]
+		[string[]]$Database,
         [switch]$Silent
     )
-	
-    dynamicparam { if ($SqlInstance) { return Get-ParamSqlDatabases -SqlServer $SqlInstance[0] -SqlCredential $SqlCredential } }
-	
-    begin {
-        $databases = $psboundparameters.Databases
-		
-        if (-not $databases) {
-            Stop-Function -Message "You must select one or more databases to drop"
-        }
-    }
-	
     process {
-        if (Test-FunctionInterrupt) { return }
-		
+        
         foreach ($instance in $SqlInstance) {
             try {
                 Write-Message -Level Verbose -Message "Connecting to $instance"
-                $server = Connect-SqlServer -SqlServer $instance -SqlCredential $sqlcredential
+                $server = Connect-SqlInstance -SqlInstance $instance -SqlCredential $sqlcredential
             }
             catch {
                 Stop-Function -Message "Failed to connect to: $instance" -Continue -Target $instance
             }
 			
-            $databases = $server.Databases | Where-Object { $_.Name -in $databases }
+            $database = $server.Databases | Where-Object { $_.Name -in $database }
 			
-            foreach ($db in $databases) {
+            foreach ($db in $database) {
                 try {
                     if ($Pscmdlet.ShouldProcess("$db on $server", "KillDatabase")) {
                         $server.KillDatabase($db.name)

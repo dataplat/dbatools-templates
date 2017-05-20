@@ -41,32 +41,28 @@ FUNCTION Get-DbaJobCategory {
     param (
         [parameter(Position = 0, Mandatory = $true, ValueFromPipeline = $True)]
         [Alias("ServerInstance", "SqlServer")]
-        [object[]]$SqlInstance,
-        [System.Management.Automation.PSCredential]$SqlCredential,
+        [DbaInstanceParameter[]]$SqlInstance,
+		[Alias("Credential")]
+		[PSCredential][System.Management.Automation.CredentialAttribute()]
+		$SqlCredential,
+		[string[]]$JobCategory,
         [switch]$Silent
     )
-	
-	 dynamicparam { if ($SqlInstance) { Get-ParamSqlAgentCategories -SqlServer $SqlInstance[0] -SqlCredential $SqlCredential } }
-	
-    begin {
-        $jobcategories = $psboundparameters.JobCategories
-    }
-	
     process {
         foreach ($instance in $SqlInstance) {
             Write-Message -Level Verbose -Message "Attempting to connect to $instance"
 			
             try {
-                $server = Connect-SqlServer -SqlServer $instance -SqlCredential $SqlCredential
+                $server = Connect-SqlInstance -SqlInstance $instance -SqlCredential $SqlCredential
             }
             catch {
                 Stop-Function -Message "Can't connect to $instance or access denied. Skipping." -Continue
             }
 			
-			$categories = $server.JobServer.JobCategories
+			$categories = $server.JobServer.jobcategory
 			
-            if ($jobcategories) {
-                $categories = $categories | Where-Object { $_.Name -in $jobcategories }
+            if ($jobcategory) {
+                $categories = $categories | Where-Object { $_.Name -in $jobcategory }
             }
 			
             foreach ($object in $categories) {
