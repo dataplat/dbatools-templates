@@ -5,9 +5,9 @@
 # the appveyor-lab is used to build sample objects that can be tested, talk to Chrissy
 Describe "Get-DbaDatabase Integration Tests" -Tags "Integrationtests" {
 
-    Context "Count system databases on localhost" {
+    Context "Count system database on localhost" {
         $results = Get-DbaDatabase -SqlInstance localhost -NoUserDb 
-        It "Should report the right number of databases" {
+        It "Should report the right number of database" {
             $results.Count | Should Be 4
         }
     }
