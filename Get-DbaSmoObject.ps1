@@ -1,79 +1,89 @@
-FUNCTION Get-DbaJobCategory {
-    <#
-	.SYNOPSIS
-	Gets SQL Agent Job Category information for each instance(s) of SQL Server.
+function Get-DbaJobCategory {
+	<#
+		.SYNOPSIS
+			Gets SQL Agent Job Category information for each instance(s) of SQL Server.
 
-	.DESCRIPTION
-	 The Get-DbaJobCategory returns connected SMO object for SQL Agent Job Category information for each instance(s) of SQL Server.
+		.DESCRIPTION
+			The Get-DbaJobCategory returns connected SMO object for SQL Agent Job Category information for each instance(s) of SQL Server.
+			
+		.PARAMETER SqlInstance
+			SQL Server name or SMO object representing the SQL Server to connect to. This can be a collection and recieve pipeline input to allow the function
+			to be executed against multiple SQL Server instances.
+
+		.PARAMETER SqlCredential
+			SqlCredential object to connect as. If not specified, current Windows login will be used.
+
+		.PARAMETER JobCategory
+			The job category(ies) to process - this list is auto populated from the server. If unspecified, all job categories will be processed.
+
+		.PARAMETER ExcludeJobCategory
+			The job category(ies) to exclude - this list is auto populated from the server.
+
+		.PARAMETER Silent 
+			Use this switch to disable any kind of verbose messages
 		
-	.PARAMETER SqlInstance
-	SQL Server name or SMO object representing the SQL Server to connect to. This can be a collection and recieve pipeline input to allow the function
-	to be executed against multiple SQL Server instances.
+		.NOTES
+			Original Author: FirstName LastName (@twitterhandle and/or website)
+			Tags: Migration, Backup
+			
+			Website: https://dbatools.io
+			Copyright: (C) Chrissy LeMaire, clemaire@gmail.com
+			License: GNU GPL v3 https://opensource.org/licenses/GPL-3.0
 
-	.PARAMETER SqlCredential
-	SqlCredential object to connect as. If not specified, current Windows login will be used.
+		.LINK
+			https://dbatools.io/Get-DbaJobCategory
 
-	.PARAMETER Silent 
-	Use this switch to disable any kind of verbose messages
-	
-	.NOTES
-	Original Author: FirstName LastName (@twitterhandle and/or website)
-	Tags: Migration, Backup
-	
-	Website: https://dbatools.io
-	Copyright: (C) Chrissy LeMaire, clemaire@gmail.com
-	License: GNU GPL v3 https://opensource.org/licenses/GPL-3.0
+		.EXAMPLE
+			Get-DbaJobCategory -SqlInstance localhost
 
-	.LINK
-	https://dbatools.io/Get-DbaJobCategory
+			Returns all SQL Agent Job Categories on the local default SQL Server instance
 
-	.EXAMPLE
-	Get-DbaJobCategory -SqlInstance localhost
-	Returns all SQL Agent Job Categories on the local default SQL Server instance
+		.EXAMPLE
+			Get-DbaJobCategory -SqlInstance localhost, sql2016
 
-	.EXAMPLE
-	Get-DbaJobCategory -SqlInstance localhost, sql2016
-	Returns all SQL Agent Job Categories for the local and sql2016 SQL Server instances
-
+			Returns all SQL Agent Job Categories for the local and sql2016 SQL Server instances
 	#>
-	
-    [CmdletBinding()]
-    param (
-        [parameter(Position = 0, Mandatory = $true, ValueFromPipeline = $True)]
-        [Alias("ServerInstance", "SqlServer")]
-        [DbaInstanceParameter[]]$SqlInstance,
+	[CmdletBinding()]
+	param (
+		[parameter(Position = 0, Mandatory = $true, ValueFromPipeline = $True)]
+		[Alias("ServerInstance", "SqlServer")]
+		[DbaInstanceParameter[]]$SqlInstance,
 		[Alias("Credential")]
 		[PSCredential][System.Management.Automation.CredentialAttribute()]
 		$SqlCredential,
-		[string[]]$JobCategory,
-        [switch]$Silent
-    )
-    process {
-        foreach ($instance in $SqlInstance) {
-            Write-Message -Level Verbose -Message "Attempting to connect to $instance"
+		[object[]]$JobCategory,
+		[object[]]$ExcludeJobCategory,
+		[switch]$Silent
+	)
+	process {
+		foreach ($instance in $SqlInstance) {
+			Write-Message -Level Verbose -Message "Attempting to connect to $instance"
 			
-            try {
-                $server = Connect-SqlInstance -SqlInstance $instance -SqlCredential $SqlCredential
-            }
-            catch {
-                Stop-Function -Message "Can't connect to $instance or access denied. Skipping." -Continue
-            }
+			try {
+				$server = Connect-SqlInstance -SqlInstance $instance -SqlCredential $SqlCredential
+			}
+			catch {
+				Stop-Function -Message "Can't connect to $instance or access denied. Skipping." -Continue
+			}
 			
 			$categories = $server.JobServer.jobcategory
 			
-            if ($jobcategory) {
-                $categories = $categories | Where-Object { $_.Name -in $jobcategory }
-            }
+			if ($JobCategory) {
+				$categories = $categories | Where-Object Name -in $JobCategory
+			}
+			if ($ExcludeJobCategory) {
+				$categories = $categories | Where-Object Name -notin $ExcludeJobCategory
+			}
 			
-            foreach ($object in $categories) {
-		Write-Message -Level Verbose -Message "Processing $object"
-                Add-Member -InputObject $object -MemberType NoteProperty ComputerName -value $server.NetName
-                Add-Member -InputObject $object -MemberType NoteProperty InstanceName -value $server.ServiceName
-                Add-Member -InputObject $object -MemberType NoteProperty SqlInstance -value $server.DomainInstanceName
+			foreach ($object in $categories) {
+				Write-Message -Level Verbose -Message "Processing $object"
+				Add-Member -InputObject $object -MemberType NoteProperty ComputerName -value $server.NetName
+				Add-Member -InputObject $object -MemberType NoteProperty InstanceName -value $server.ServiceName
+				Add-Member -InputObject $object -MemberType NoteProperty SqlInstance -value $server.DomainInstanceName
 				
-		# Select all of the columns you'd like to show
-                Select-DefaultView -InputObject $object -Property ComputerName, InstanceName, SqlInstance, ID, Name, Whatever, Whatever2
-            } #foreach object
-        } #foreach instance
-    } # process
+				# Select all of the columns you'd like to show
+				Select-DefaultView -InputObject $object -Property ComputerName, InstanceName, SqlInstance, ID, Name, Whatever, Whatever2
+			} #foreach object
+		} #foreach instance
+	} # process
 } #function
