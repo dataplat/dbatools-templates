@@ -63,7 +63,7 @@ function Get-DbaJobCategory {
 				$server = Connect-SqlInstance -SqlInstance $instance -SqlCredential $SqlCredential
 			}
 			catch {
-				Stop-Function -Message "Can't connect to $instance or access denied. Skipping." -Continue
+				Stop-Function -Message "Failure" -Category ConnectionError -ErrorRecord $_ -Target $instance -Continue
 			}
 			
 			$categories = $server.JobServer.jobcategory
