@@ -66,7 +66,7 @@ function Get-DbaJobCategory {
 				Stop-Function -Message "Failure" -Category ConnectionError -ErrorRecord $_ -Target $instance -Continue
 			}
 			
-			$categories = $server.JobServer.jobcategory
+			$categories = $server.JobServer.JobCategory
 			
 			if ($JobCategory) {
 				$categories = $categories | Where-Object Name -in $JobCategory
