@@ -19,8 +19,8 @@ function Get-DbaJobCategory {
 		.PARAMETER ExcludeJobCategory
 			The job category(ies) to exclude - this list is auto populated from the server.
 
-		.PARAMETER Silent 
-			Use this switch to disable any kind of verbose messages
+		.PARAMETER Silent
+			If this switch is enabled, the internal messaging functions will be silenced. 
 		
 		.NOTES
 			Original Author: FirstName LastName (@twitterhandle and/or website)
