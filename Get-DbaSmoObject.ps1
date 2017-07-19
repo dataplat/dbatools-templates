@@ -7,17 +7,16 @@ function Get-DbaJobCategory {
 			The Get-DbaJobCategory returns connected SMO object for SQL Agent Job Category information for each instance(s) of SQL Server.
 			
 		.PARAMETER SqlInstance
-			SQL Server name or SMO object representing the SQL Server to connect to. This can be a collection and recieve pipeline input to allow the function
-			to be executed against multiple SQL Server instances.
+			SQL Server name or SMO object representing the SQL Server to connect to. This can be a collection and receive pipeline input to allow the function to be executed against multiple SQL Server instances.
 
 		.PARAMETER SqlCredential
 			SqlCredential object to connect as. If not specified, current Windows login will be used.
 
 		.PARAMETER JobCategory
-			The job category(ies) to process - this list is auto populated from the server. If unspecified, all job categories will be processed.
+			The job category(ies) to process. This list is auto populated from the server. If unspecified, all job categories will be processed.
 
 		.PARAMETER ExcludeJobCategory
-			The job category(ies) to exclude - this list is auto populated from the server.
+			The job category(ies) to exclude. This list is auto populated from the server.
 
 		.PARAMETER Silent
 			If this switch is enabled, the internal messaging functions will be silenced. 
