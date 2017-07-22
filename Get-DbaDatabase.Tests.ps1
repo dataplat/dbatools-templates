@@ -1,21 +1,27 @@
-#Thank you Warren http://ramblingcookiemonster.github.io/Testing-DSC-with-Pester-and-AppVeyor/
+$commandname = $MyInvocation.MyCommand.Name.Replace(".ps1","")
+Write-Host -Object "Running $PSCommandpath" -ForegroundColor Cyan
+. "$PSScriptRoot\constants.ps1"
 
-# For the developer, leave the above thanks in. Remove this and an important thing to note
-# we have two instances that appveyor tests against localhost (sql2008r2) and localhost\sql2016
-# the appveyor-lab is used to build sample objects that can be tested, talk to Chrissy
-Describe "Get-DbaDatabase Integration Tests" -Tags "Integrationtests" {
+Describe "$commandname Integration Tests" -Tags "IntegrationTests" {
 
-	Context "Count system database on localhost" {
-		$results = Get-DbaDatabase -SqlInstance localhost -NoUserDb 
-		It "Should report the right number of database" {
+	Context "Count system databases on localhost" {
+		$results = Get-DbaDatabase -SqlInstance $script:instance1 -NoUserDb 
+		It "Should report the right number of databases" {
 			$results.Count | Should Be 4
 		}
 	}
 
-	Context "Check that master database is in FULL recovery mode" {
-			$results = Get-DbaDatabase -SqlInstance localhost -Database master
-			It "Should say the recovery mode of master is Full" {
-				$results.RecoveryModel | Should Be "Full"
-			}
+	Context "Check that master database is in Simple recovery mode" {
+		$results = Get-DbaDatabase -SqlInstance $script:instance1 -Database master
+		It "Should say the recovery mode of master is Simple" {
+			$results.RecoveryModel | Should Be "Simple"
 		}
+	}
+	
+	Context "Check that master database is accessible" {
+		$results = Get-DbaDatabase -SqlInstance $script:instance1 -Database master
+		It "Should return true that master is accessible" {
+			$results.IsAccessible | Should Be $true
+		}
+	}
 }
