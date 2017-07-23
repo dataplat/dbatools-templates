@@ -24,11 +24,11 @@ function Test-DbaIdentityUsage {
 	.PARAMETER Threshold
 		Allows you to specify a minimum % of the seed range being utilized.  This can be used to ignore seeds that have only utilized a small fraction of the range.
 
-	.PARAMETER NoSystemDb
+	.PARAMETER ExcludeSystemDatabase
 		Allows you to suppress output on system databases
 
 	.PARAMETER Silent 
-		Use this switch to disable any kind of verbose messages
+		Use this switch to disable any kind of verbose messages (this is required)
 
 	.NOTES 
 		Author: You, YourTwitterOrBlog
@@ -66,70 +66,15 @@ function Test-DbaIdentityUsage {
 		[parameter(Position = 1, Mandatory = $false)]
 		[int]$Threshold = 0,
 		[parameter(Position = 2, Mandatory = $false)]
-		[switch]$NoSystemDb,
+		[switch]$ExcludeSystemDatabase,
 		[switch]$Silent
 	)
 
 	BEGIN {
 		
-		$sql = ";WITH CTE_1
-		AS
-		(
-		  SELECT SCHEMA_NAME(o.schema_id) AS SchemaName,
-				 OBJECT_NAME(a.Object_id) as TableName,
-				 a.Name as ColumnName,
-				 seed_value AS SeedValue,
-				 CONVERT(bigint, increment_value) as IncrementValue,
-
-				 CONVERT(bigint, ISNULL(a.last_value, seed_value)) AS LastValue,
-
-				 CONVERT(bigint,
-								(
-									CONVERT(bigint, ISNULL(last_value, seed_value)) 
-									- CONVERT(bigint, seed_value) 
-									+ (CASE WHEN CONVERT(bigint, seed_value) <> 0 THEN 1 ELSE 0 END) 
-								)
-								/
-								CONVERT(bigint, increment_value)
-						) AS NumberOfUses,
-
-				 -- Divide by increment_value to shows the max number of values that can be used
-				 -- E.g: smallint identity column that starts on the lower possible value (-32768) and have an increment of 2 will only accept ABS(32768 - 32767 - 1) / 2 = 32768 rows
-				 CAST( 
-						--ABS(
-						CONVERT(bigint, seed_value) 
-						- 
-						Case
-							When b.name = 'tinyint'   Then 255
-							When b.name = 'smallint'  Then 32767
-							When b.name = 'int'       Then 2147483647
-							When b.name = 'bigint'    Then 9223372036854775807
-						End 
-						-
-						-- When less than 0 the 0 counts too
-						CASE 
-							WHEN CONVERT(bigint, seed_value) <= 0 THEN 1
-							ELSE 0
-							END
-						--) 
-						/ CONVERT(bigint, increment_value) 
-					AS Numeric(20, 0)) AS MaxNumberRows
-			FROM sys.identity_columns a
-				INNER JOIN sys.objects o
-				   ON a.object_id = o.object_id
-				INNER JOIN sys.types As b
-				   ON a.system_type_id = b.system_type_id
-		  WHERE a.seed_value is not null
-		),
-		CTE_2
-		AS
-		(
-		SELECT SchemaName, TableName, ColumnName, CONVERT(BIGINT, SeedValue) AS SeedValue, CONVERT(BIGINT, IncrementValue) AS IncrementValue, LastValue, ABS(CONVERT(FLOAT,MaxNumberRows)) AS MaxNumberRows, NumberOfUses, 
-			   CONVERT(Numeric(18,2), ((CONVERT(Float, NumberOfUses) / ABS(CONVERT(FLOAT,MaxNumberRows)) * 100))) AS [PercentUsed]
-		  FROM CTE_1
-		)
-		SELECT DB_NAME() as DatabaseName, SchemaName, TableName, ColumnName, SeedValue, IncrementValue, LastValue, MaxNumberRows, NumberOfUses, [PercentUsed]
-		  FROM CTE_2"
+		 $sql = "SELECT  SERVERPROPERTY('MachineName') AS ComputerName,
+        ISNULL(SERVERPROPERTY('InstanceName'), 'MSSQLSERVER') AS InstanceName,
+        SERVERPROPERTY('ServerName') AS SqlInstance, etc etc from whatever"
 
 		if ($Threshold -gt 0) { 
 			$sql += " WHERE [PercentUsed] >= " + $Threshold + " ORDER BY [PercentUsed] DESC" 
@@ -160,7 +105,7 @@ function Test-DbaIdentityUsage {
 				$dbs = $dbs | Where-Object Name -NotIn $ExcludeDatabase
 			}
 			
-			if ($NoSystemDb) {
+			if ($ExcludeSystemDatabase) {
 				$dbs = $dbs | Where-Object IsSystemObject -eq $false
 			}
 			
