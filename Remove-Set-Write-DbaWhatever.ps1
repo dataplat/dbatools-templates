@@ -10,17 +10,17 @@
 			The SQL Server instance holding the databases to be removed.You must have sysadmin access and server version must be SQL Server version 2000 or higher.
 
 		.PARAMETER SqlCredential
-			Allows you to login to servers using SQL Logins as opposed to Windows Auth/Integrated/Trusted.
+			Allows you to login to servers using SQL Logins instead of Windows Authentication (AKA Integrated or Trusted). To use:
 
-			$scred = Get-Credential, then pass $scred object to the -SqlCredential parameter.
-
+			$cred = Get-Credential, this pass this $cred to the param. 
+		
 			Windows Authentication will be used if SqlCredential is not specified. SQL Server does not accept Windows credentials being passed as credentials. To connect as a different Windows user, run PowerShell as that user.
 
 		.PARAMETER Database
-			The database(s) to process - this list is auto populated from the server. If unspecified, all databases will be processed.
+			The database(s) to process. This list is auto-populated from the server. If unspecified, all databases will be processed.
 
 		.PARAMETER ExcludeDatabase
-			The database(s) to exclude - this list is auto populated from the server
+			The database(s) to exclude - this list is auto-populated from the server.
 
 		.PARAMETER WhatIf
 			If this switch is enabled, no actions are performed but informational messages will be displayed that explain what would happen if the command were to run.
