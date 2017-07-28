@@ -7,7 +7,14 @@ function Test-Noun {
             Longer description of the test(s) and how they're run.
 
         .PARAMETER ComputerName
-            The computer to test against.
+            The target computer to test against. Defaults to localhost.
+
+            NOTE: Function should use this parameter or SqlInstance. Select the appropriate parameter and corresponding help content, and remove the unused one.
+
+        .PARAMETER SqlInstance
+            The target SQL Server instance to test against. Defaults to the default instance on localhost.
+
+            NOTE: Function should use this parameter or ComputerName. Select the appropriate parameter and corresponding help content, and remove the unused one.
 
         .PARAMETER Force
             If this switch is enabled, the Alert will be dropped and recreated on Destination.

@@ -7,7 +7,14 @@ function Add-Noun {
             Longer description of what Add-Noun does
 
         .PARAMETER ComputerName
-            The target SQL Server. Defaults to localhost.
+            The target computer. Defaults to localhost.
+
+            NOTE: Function should use this parameter or ComputerName. Select the appropriate parameter and corresponding help content, and remove the unused one.
+
+        .PARAMETER SqlInstance
+            The target SQL Server instance. Defaults to the default instance on localhost.
+
+            NOTE: Function should use this parameter or ComputerName. Select the appropriate parameter and corresponding help content, and remove the unused one.
 
         .PARAMETER WhatIf
             If this switch is enabled, no actions are performed but informational messages will be displayed that explain what would happen if the command were to run.
