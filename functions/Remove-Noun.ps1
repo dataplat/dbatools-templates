@@ -7,7 +7,7 @@ function Remove-Noun {
             Longer description of what Remove-Noun does.
 
 		.PARAMETER SqlInstance
-			The SQL Server instance. Server version must be SQL Server version 2012 or higher.
+			The SQL Server instance. Server version must be SQL Server version XXXX or higher.
 
 		.PARAMETER SqlCredential
 			Allows you to login to servers using SQL Logins instead of Windows Authentication (AKA Integrated or Trusted). To use:
