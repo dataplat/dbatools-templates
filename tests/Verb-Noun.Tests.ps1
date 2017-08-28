@@ -44,7 +44,7 @@ Describe "$CommandName Unit Tests" -Tag 'UnitTests' {
 	}
 }
 <#
-	Integration test are custom to the command you are writting it for,
+	Integration test are custom to the command you are writing it for,
 		but something similar to below should be included if applicable.
 
 	The below examples are by no means set in stone and there are already
@@ -54,7 +54,7 @@ Describe "$CommandName Unit Tests" -Tag 'UnitTests' {
 # Add-DbaNoun
 Describe "$CommandName Integration Tests" -Tags "IntegrationTests" {
 	Context "XYZ is added properly" {
-		$results = Add-DbaXyz <# your specific parmeters and values #> -Confirm:$false
+		$results = Add-DbaXyz <# your specific parameters and values #> -Confirm:$false
 
 		It "Should show the proper LMN has been added" {
 			$results.Property1 | Should Be "daper dan"
