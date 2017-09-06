@@ -33,7 +33,7 @@ Describe "$CommandName Unit Tests" -Tag 'UnitTests' {
 		#>
 		$paramCount = x
 		$defaultParamCount = x
-		[object[]]$params = (Get-ChildItem function:\Get-DbaAgReplica).Parameters.Keys
+		[object[]]$params = (Get-ChildItem function:\Verb-DbaXyz).Parameters.Keys
 		$knownParameters = 'Computer', 'SqlInstance', 'SqlCredential', 'Credential', 'Silent'
 		it "Should contain our specific parameters" {
 			( (Compare-Object -ReferenceObject $knownParameters -DifferenceObject $params -IncludeEqual | Where-Object SideIndicator -eq "==").Count ) | Should Be $paramCount
