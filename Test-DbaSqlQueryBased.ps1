@@ -116,7 +116,7 @@ function Test-DbaIdentityUsage {
 					Stop-Function -Message "The database $db is not accessible. Skipping database." -Continue
 				}
 				
-				foreach ($row in $db.ExecuteWithResults($sql).Tables[0]) {
+				foreach ($row in $db.Query($sql)) {
 					if ($row.PercentUsed -eq [System.DBNull]::Value) {
 						continue
 					}
