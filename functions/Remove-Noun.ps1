@@ -29,7 +29,7 @@ function Remove-Noun {
 
 		.NOTES
             Tags: TAGS_HERE 
-            Original Author: Your name (@TwitterHandle)
+            Author: Your name (@TwitterHandle)
 
             Website: https://dbatools.io
             Copyright: (C) Chrissy LeMaire, clemaire@gmail.com

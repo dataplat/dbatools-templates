@@ -33,7 +33,7 @@
 
 		.NOTES
 			Tags: Migration, Backup
-			Original Author: FirstName LastName (@twitterhandle and/or website)
+			Author: FirstName LastName (@twitterhandle and/or website)
 
 			Website: https://dbatools.io
 			Copyright: (C) Chrissy LeMaire, clemaire@gmail.com
