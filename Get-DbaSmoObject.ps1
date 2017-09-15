@@ -22,7 +22,7 @@ function Get-DbaJobCategory {
 			If this switch is enabled, the internal messaging functions will be silenced. 
 		
 		.NOTES
-			Original Author: FirstName LastName (@twitterhandle and/or website)
+			Author: FirstName LastName (@twitterhandle and/or website)
 			Tags: Migration, Backup
 			
 			Website: https://dbatools.io
