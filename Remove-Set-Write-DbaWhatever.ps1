@@ -98,7 +98,7 @@
 				Stop-Function -Message "Failure" -Category ConnectionError -ErrorRecord $_ -Target $instance -Continue
 			}
 
-			if ($server.MajorVersion -lt 9) {
+			if ($server.VersionMajor -lt 9) {
 				Stop-Function -Message "Performing x process is not supported in this version of SQL Server"
 				return
 			}
