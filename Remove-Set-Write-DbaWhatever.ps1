@@ -167,8 +167,4 @@
 			}
 		}
 	}
-	end {
-		if (Test-FunctionInterrupt) { return }
-		<# any cleanup needed #>
-	}
 }
