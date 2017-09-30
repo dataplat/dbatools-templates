@@ -67,10 +67,8 @@
 		[parameter(Mandatory = $true, ValueFromPipeline = $true)]
 		[Alias("ServerInstance", "SqlServer")]
 		[DbaInstanceParameter[]]$SqlInstance,
-		[parameter(Mandatory = $false)]
 		[Alias("Credential")]
-		[PSCredential][System.Management.Automation.CredentialAttribute()]
-		$SqlCredential,
+		[PSCredential]$SqlCredential,
 		[parameter(Mandatory)]
 		[object[]]$Database,
 		[object[]]$ExcludeDatabase,
