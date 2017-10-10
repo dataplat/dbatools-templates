@@ -15,7 +15,7 @@
 <#
 	The below statement stays in for every test you build.
 #>
-$CommandName = $MyInvocation.MyCommand.Name.Replace(".ps1","")
+$CommandName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1","")
 Write-Host -Object "Running $PSCommandPath" -ForegroundColor Cyan
 . "$PSScriptRoot\constants.ps1"
 
@@ -35,10 +35,10 @@ Describe "$CommandName Unit Tests" -Tag 'UnitTests' {
 		$defaultParamCount = x
 		[object[]]$params = (Get-ChildItem function:\Verb-DbaXyz).Parameters.Keys
 		$knownParameters = 'Computer', 'SqlInstance', 'SqlCredential', 'Credential', 'Silent'
-		it "Should contain our specific parameters" {
+		It "Should contain our specific parameters" {
 			( (Compare-Object -ReferenceObject $knownParameters -DifferenceObject $params -IncludeEqual | Where-Object SideIndicator -eq "==").Count ) | Should Be $paramCount
 		}
-		it "Should only contain $paramCount parameters" {
+		It "Should only contain $paramCount parameters" {
 			$params.Count - $defaultParamCount | Should Be $paramCount
 		}
 	}
@@ -85,7 +85,7 @@ Describe "$CommandName Integration Tests" -Tags "IntegrationTests" {
 Describe "$CommandName Integration Tests" -Tags "IntegrationTests" {
 	Context "Command actually works" {
 		$results = Get-DbaXyz -ComputerName $script:instance1, $script:instance2
-		it "Should have correct properties" {
+		It "Should have correct properties" {
 			$ExpectedProps = 'ComputerName,InstanceName,SqlInstance,Property1,Property2,Property3'.Split(',')
 			($results.PsObject.Properties.Name | Sort-Object) | Should Be ($ExpectedProps | Sort-Object)
 		}
@@ -102,11 +102,11 @@ Describe "$CommandName Integration Tests" -Tags "IntegrationTests" {
 Describe "$CommandName Integration Test" -Tag "IntegrationTests" {
 	$results = Invoke-DbaXyz -SqlInstance $script:instance1 -Type SpecialValue
 	Context "Validate output" {
-		it "Should have correct properties" {
+		It "Should have correct properties" {
 			$ExpectedProps = 'ComputerName,InstanceName,SqlInstance,LogType,IsSuccessful,Notes'.Split(',')
 			($results.PsObject.Properties.Name | Sort-Object) | Should Be ($ExpectedProps | Sort-Object)
 		}
-		it "Should cycle instance error log" {
+		It "Should cycle instance error log" {
 			$results.LogType | Should Be "instance"
 		}
 	}
