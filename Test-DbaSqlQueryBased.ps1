@@ -27,8 +27,10 @@ function Test-DbaIdentityUsage {
 	.PARAMETER ExcludeSystemDatabase
 		Allows you to suppress output on system databases
 
-	.PARAMETER Silent 
-		Use this switch to disable any kind of verbose messages (this is required)
+	.PARAMETER EnableException
+		By default, when something goes wrong we try to catch it, interpret it and give you a friendly warning message.
+		This avoids overwhelming you with "sea of red" exceptions, but is inconvenient because it basically disables advanced scripting.
+		Using this switch turns this "nice by default" feature off and enables you to catch exceptions with your own try/catch.
 
 	.NOTES 
 		Author: You, YourTwitterOrBlog
@@ -67,7 +69,8 @@ function Test-DbaIdentityUsage {
 		[int]$Threshold = 0,
 		[parameter(Position = 2, Mandatory = $false)]
 		[switch]$ExcludeSystemDatabase,
-		[switch]$Silent
+		[Alias('Silent')]
+		[switch]$EnableException
 	)
 
 	BEGIN {
