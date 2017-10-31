@@ -1,4 +1,4 @@
-function Test-DbaIdentityUsage {
+function Get-DbaIdentityUsage {
 	<# 
 	.SYNOPSIS 
 		Displays information relating to IDENTITY seed usage.  Works on SQL Server 2008 and above.
@@ -41,18 +41,18 @@ function Test-DbaIdentityUsage {
 		License: GNU GPL v3 https://opensource.org/licenses/GPL-3.0
 
 	.LINK 
-		https://dbatools.io/Test-DbaIdentityUsage
+		https://dbatools.io/Get-DbaIdentityUsage
 
 	.EXAMPLE   
-		Test-DbaIdentityUsage -SqlInstance sql2008, sqlserver2012
+		Get-DbaIdentityUsage -SqlInstance sql2008, sqlserver2012
 		Check identity seeds for servers sql2008 and sqlserver2012.
 
 	.EXAMPLE   
-		Test-DbaIdentityUsage -SqlInstance sql2008 -Database TestDB
+		Get-DbaIdentityUsage -SqlInstance sql2008 -Database TestDB
 		Check identity seeds on server sql2008 for only the TestDB database
 
 	.EXAMPLE   
-		Test-DbaIdentityUsage -SqlInstance sql2008 -Database TestDB -Threshold 20
+		Get-DbaIdentityUsage -SqlInstance sql2008 -Database TestDB -Threshold 20
 		Check identity seeds on server sql2008 for only the TestDB database, limiting results to 20% utilization of seed range or higher
 	#>
 	[CmdletBinding()]
