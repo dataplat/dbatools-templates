@@ -48,10 +48,9 @@ function Get-DbaJobCategory {
 	param (
 		[parameter(Position = 0, Mandatory = $true, ValueFromPipeline = $True)]
 		[Alias("ServerInstance", "SqlServer")]
-		[DbaInstanceParameter[]]$SqlInstance,
+		[DbaInstance[]]$SqlInstance,
 		[Alias("Credential")]
-		[PSCredential][System.Management.Automation.CredentialAttribute()]
-		$SqlCredential,
+		[PSCredential]$SqlCredential,
 		[object[]]$JobCategory,
 		[object[]]$ExcludeJobCategory,
 		[Alias('Silent')]
