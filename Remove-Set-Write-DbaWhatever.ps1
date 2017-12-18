@@ -74,7 +74,8 @@
 		[parameter(Mandatory)]
 		[object[]]$Database,
 		[object[]]$ExcludeDatabase,
-		[Alias('Silent')][switch]$EnableException
+		[Alias('Silent')]
+		[switch]$EnableException
 	)
 
 	begin {
