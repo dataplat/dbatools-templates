@@ -60,8 +60,7 @@ function Get-DbaIdentityUsage {
 		[parameter(Position = 0, Mandatory = $true, ValueFromPipeline = $True)]
 		[Alias("ServerInstance", "SqlServer", "SqlServers")]
 		[DbaInstance[]]$SqlInstance,
-		[PSCredential]
-		$SqlCredential,
+		[PSCredential]$SqlCredential,
 		[Alias("Databases")]
 		[object[]]$Database,
 		[object[]]$ExcludeDatabase,
