@@ -68,14 +68,13 @@
 	param (
 		[parameter(Mandatory = $true, ValueFromPipeline = $true)]
 		[Alias("ServerInstance", "SqlServer")]
-		[DbaInstanceParameter[]]$SqlInstance,
+		[DbaInstance[]]$SqlInstance,
 		[Alias("Credential")]
 		[PSCredential]$SqlCredential,
 		[parameter(Mandatory)]
 		[object[]]$Database,
 		[object[]]$ExcludeDatabase,
-		[Alias('Silent')]
-		[switch]$EnableException
+		[Alias('Silent')][switch]$EnableException
 	)
 
 	begin {
