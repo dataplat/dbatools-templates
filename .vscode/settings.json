@@ -1,6 +1,6 @@
 {
     "powershell.codeFormatting.preset": "Custom",
-    
+
     // Places open brace on the same line as its associated statement.
     "powershell.codeFormatting.openBraceOnSameLine": true,
   
@@ -26,5 +26,11 @@
     "powershell.codeFormatting.ignoreOneLineBlock": true,
   
     // Align assignment statements in a hashtable or a DSC Configuration.
-    "powershell.codeFormatting.alignPropertyValuePairs": true
+    "powershell.codeFormatting.alignPropertyValuePairs": true,
+
+    "[powershell]" : {
+        "editor.tabSize": 4,
+        "editor.detectIndentation": false,
+        "editor.insertSpaces": true
+    }
 }
