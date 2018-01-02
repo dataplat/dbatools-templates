@@ -1,6 +1,6 @@
 function Set-Noun {
     <#
-        .SYNOPSIS 
+        .SYNOPSIS
             Set-Noun sets the configuration of Noun
 
         .DESCRIPTION
@@ -30,7 +30,7 @@ function Set-Noun {
             Using this switch turns this "nice by default" feature off and enables you to catch exceptions with your own try/catch.
 
         .NOTES
-            Tags: TAGS_HERE 
+            Tags: TAGS_HERE
             Author: Your name (@TwitterHandle)
 
             Website: https://dbatools.io

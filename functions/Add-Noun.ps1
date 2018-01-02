@@ -1,7 +1,7 @@
 function Add-Noun {
     <#
         .SYNOPSIS
-            Adds a Noun 
+            Adds a Noun
 
         .DESCRIPTION
             Longer description of what Add-Noun does
@@ -26,9 +26,9 @@ function Add-Noun {
             By default, when something goes wrong we try to catch it, interpret it and give you a friendly warning message.
             This avoids overwhelming you with "sea of red" exceptions, but is inconvenient because it basically disables advanced scripting.
             Using this switch turns this "nice by default" feature off and enables you to catch exceptions with your own try/catch.
-            
+
         .NOTES
-            Tags: TAGS_HERE 
+            Tags: TAGS_HERE
             Author: Your name (@TwitterHandle)
 
             Website: https://dbatools.io
