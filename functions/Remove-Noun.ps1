@@ -1,6 +1,6 @@
 function Remove-Noun {
     <#
-        .SYNOPSIS 
+        .SYNOPSIS
             Removes a Noun from the SQL Server instance
 
         .DESCRIPTION
@@ -17,7 +17,7 @@ function Remove-Noun {
             Windows Authentication will be used if SqlCredential is not specified. SQL Server does not accept Windows credentials being passed as credentials.
 
             To connect as a different Windows user, run PowerShell as that user.
-        
+
         .PARAMETER WhatIf
             If this switch is enabled, no actions are performed but informational messages will be displayed that explain what would happen if the command were to run.
 
@@ -30,7 +30,7 @@ function Remove-Noun {
             Using this switch turns this "nice by default" feature off and enables you to catch exceptions with your own try/catch.
 
         .NOTES
-            Tags: TAGS_HERE 
+            Tags: TAGS_HERE
             Author: Your name (@TwitterHandle)
 
             Website: https://dbatools.io
@@ -40,7 +40,7 @@ function Remove-Noun {
         .LINK
             https://dbatools.io/Remove-Noun
 
-        .EXAMPLE   
+        .EXAMPLE
             Remove-Noun -SqlInstance sqlserver2014
 
             Removes the Noun from the SQL Server instance sqlserver2014.

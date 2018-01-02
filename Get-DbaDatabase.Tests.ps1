@@ -5,7 +5,7 @@ Write-Host -Object "Running $PSCommandPath" -ForegroundColor Cyan
 Describe "$CommandName Integration Tests" -Tags "IntegrationTests" {
 
     Context "Count system databases on localhost" {
-        $results = Get-DbaDatabase -SqlInstance $script:instance1 -NoUserDb 
+        $results = Get-DbaDatabase -SqlInstance $script:instance1 -NoUserDb
         It "Should report the right number of databases" {
             $results.Count | Should Be 4
         }
@@ -17,7 +17,7 @@ Describe "$CommandName Integration Tests" -Tags "IntegrationTests" {
             $results.RecoveryModel | Should Be "Simple"
         }
     }
-    
+
     Context "Check that master database is accessible" {
         $results = Get-DbaDatabase -SqlInstance $script:instance1 -Database master
         It "Should return true that master is accessible" {
