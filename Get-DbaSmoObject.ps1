@@ -10,7 +10,7 @@ function Get-DbaJobCategory {
             SQL Server name or SMO object representing the SQL Server to connect to. This can be a collection and receive pipeline input to allow the function to be executed against multiple SQL Server instances.
 
         .PARAMETER SqlCredential
-            Login to the target instance using alternative credentials. Windows and SQL Authentication supported. Accepts credential objects (Get-Credential)
+            Login to the target instance using alternate Windows or SQL Login Authentication. Accepts credential objects (Get-Credential).
 
         .PARAMETER JobCategory
             The job category(ies) to process. This list is auto populated from the server. If unspecified, all job categories will be processed.
