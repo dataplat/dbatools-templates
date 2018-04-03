@@ -10,7 +10,7 @@ function Get-DbaIdentityUsage {
         Allows you to specify a comma separated list of servers to query.
 
     .PARAMETER SqlCredential
-        Login to the target instance using alternative credentials. Windows and SQL Authentication supported. Accepts credential objects (Get-Credential)
+        Login to the target instance using alternate Windows or SQL Login Authentication. Accepts credential objects (Get-Credential).
 
     .PARAMETER Database
         The database(s) to process - this list is auto-populated from the server. If unspecified, all databases will be processed.
