@@ -56,7 +56,7 @@ function Get-DbaIdentityUsage {
     Param (
         [parameter(Position = 0, Mandatory = $true, ValueFromPipeline = $True)]
         [Alias("ServerInstance", "SqlServer", "SqlServers")]
-        [DbaInstance[]]$SqlInstance,
+        [DbaInstanceParameter[]]$SqlInstance,
         [PSCredential]$SqlCredential,
         [Alias("Databases")]
         [object[]]$Database,
@@ -65,11 +65,10 @@ function Get-DbaIdentityUsage {
         [int]$Threshold = 0,
         [parameter(Position = 2, Mandatory = $false)]
         [switch]$ExcludeSystemDatabase,
-        [Alias('Silent')]
         [switch]$EnableException
     )
 
-    BEGIN {
+    begin {
 
         $sql = "SELECT  SERVERPROPERTY('MachineName') AS ComputerName,
         ISNULL(SERVERPROPERTY('InstanceName'), 'MSSQLSERVER') AS InstanceName,
