@@ -46,13 +46,13 @@ function Get-DbaJobCategory {
     #>
     [CmdletBinding()]
     param (
-        [parameter(Position = 0, Mandatory = $true, ValueFromPipeline = $True)]
+        [parameter(Position = 0, Mandatory, ValueFromPipeline)]
         [Alias("ServerInstance", "SqlServer")]
         [DbaInstance[]]$SqlInstance,
         [Alias("Credential")]
         [PSCredential]$SqlCredential,
-        [object[]]$JobCategory,
-        [object[]]$ExcludeJobCategory,
+        [string[]]$JobCategory,
+        [string[]]$ExcludeJobCategory,
         [Alias('Silent')]
         [switch]$EnableException
     )
