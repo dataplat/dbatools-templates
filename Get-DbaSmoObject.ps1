@@ -35,12 +35,18 @@ function Get-DbaJobCategory {
             https://dbatools.io/Get-DbaJobCategory
 
         .EXAMPLE
-            Get-DbaJobCategory -SqlInstance localhost
+            PS C:\> Get-DbaJobCategory -SqlInstance localhost
 
             Returns all SQL Agent Job Categories on the local default SQL Server instance
 
         .EXAMPLE
-            Get-DbaJobCategory -SqlInstance localhost, sql2016
+            PS C:\> Get-DbaJobCategory -SqlInstance localhost, sql2016
+
+            Returns all SQL Agent Job Categories for the local and sql2016 SQL Server instances
+
+        .EXAMPLE
+            PS C:\> $servers = Get-Content C:\servers.txt
+            PS C:\> $servers | Get-DbaJobCategory
 
             Returns all SQL Agent Job Categories for the local and sql2016 SQL Server instances
     #>
