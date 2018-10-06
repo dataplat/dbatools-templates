@@ -1,5 +1,5 @@
 ﻿function Remove-Noun {
-<#        
+<#
     .SYNOPSIS
         Removes a Noun from the SQL Server instance
         

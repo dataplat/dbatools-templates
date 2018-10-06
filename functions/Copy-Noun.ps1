@@ -1,5 +1,5 @@
 ﻿function Copy-Noun {
-<#        
+<#
     .SYNOPSIS
         Copies Noun between SQL Server instances.
         

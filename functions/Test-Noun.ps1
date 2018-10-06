@@ -1,5 +1,5 @@
 ﻿function Test-Noun {
-<#        
+<#
     .SYNOPSIS
         Tests Noun on a computer.
         

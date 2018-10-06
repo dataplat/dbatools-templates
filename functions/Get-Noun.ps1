@@ -1,5 +1,5 @@
 ﻿function Get-Noun {
-<#        
+<#
     .SYNOPSIS
         Outputs the Noun found on the server.
         

@@ -1,5 +1,5 @@
 ﻿function Set-Noun {
-<#        
+<#
     .SYNOPSIS
         Set-Noun sets the configuration of Noun
         
