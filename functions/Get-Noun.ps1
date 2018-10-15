@@ -29,7 +29,7 @@
         https://dbatools.io/Get-Noun
         
     .EXAMPLE
-        Get-Noun -SqlInstance sqlserver2014a
+        PS C:\> Get-Noun -SqlInstance sqlserver2014a
         
         Returns basic information on all Nouns found on sqlserver2014a
         

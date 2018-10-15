@@ -36,7 +36,7 @@
         https://dbatools.io/Test-Noun
         
     .EXAMPLE
-        Test-Noun -ComputerName sql2014
+        PS C:\> Test-Noun -ComputerName sql2014
         
         Performs a test of Noun against the computer sql2014.
         
