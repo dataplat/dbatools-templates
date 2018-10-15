@@ -40,7 +40,7 @@
         
     .EXAMPLE
         
-        Add-Noun -ComputerName Server1
+        PS C:\> Add-Noun -ComputerName Server1
         
         Adds Noun to Server1
         

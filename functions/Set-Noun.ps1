@@ -35,7 +35,7 @@
         https://dbatools.io/Set-Noun
         
     .EXAMPLE
-        Set-Noun -SqlInstance sql2014
+        PS C:\> Set-Noun -SqlInstance sql2014
         
         Sets the configuration of Noun on SQL Server instance sql2014
         

@@ -50,17 +50,17 @@
         https://dbatools.io/Copy-Noun
         
     .EXAMPLE
-        Copy-Noun -Source sqlserver2014a -Destination sqlcluster
+        PS C:\> Copy-Noun -Source sqlserver2014a -Destination sqlcluster
         
         Copies all Nouns from sqlserver2014a to sqlcluster using Windows credentials. If Nouns with the same name exist on sqlcluster, they will be skipped.
         
     .EXAMPLE
-        Copy-Noun -Source sqlserver2014a -Destination sqlcluster -Noun SqlNoun -SourceSqlCredential $cred -Force
+        PS C:\> Copy-Noun -Source sqlserver2014a -Destination sqlcluster -Noun SqlNoun -SourceSqlCredential $cred -Force
         
         Copies a single Noun (SqlNoun) from sqlserver2014a to sqlcluster using SQL credentials for sqlserver2014a and Windows credentials for sqlcluster. If a alert with the same name exists on sqlcluster, it will be dropped and recreated because -Force was used.
         
     .EXAMPLE
-        Copy-Noun -Source sqlserver2014a -Destination sqlcluster -WhatIf -Force
+        PS C:\> Copy-Noun -Source sqlserver2014a -Destination sqlcluster -WhatIf -Force
         
         Shows what would happen if the command were executed using force.
         

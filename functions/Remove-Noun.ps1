@@ -35,7 +35,7 @@
         https://dbatools.io/Remove-Noun
         
     .EXAMPLE
-        Remove-Noun -SqlInstance sqlserver2014
+        PS C:\> Remove-Noun -SqlInstance sqlserver2014
         
         Removes the Noun from the SQL Server instance sqlserver2014.
         
