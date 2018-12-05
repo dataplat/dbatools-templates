@@ -23,6 +23,7 @@ function New-DbaTestGenerator {
         https://dbatools.io/New-DbaTestGenerator
 
     .EXAMPLE
+        PS C:\GitHub\> . .\dbatools-templates\New-DbaTestGenerator.ps1
         PS C:\GitHub\> New-DbaTestGenerator -DevelopmentPath .\dbatools\
 
         Creates Unit Tests for all named parameters in the files found
