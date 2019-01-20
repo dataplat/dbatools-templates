@@ -81,10 +81,10 @@ Describe "$CommandName Unit Tests" -Tag 'UnitTests' {
             $currentTest = $currentTest.Replace("`$knownParameters = 'Computer', 'SqlInstance', 'SqlCredential', 'Credential', 'EnableException'", "`$knownParameters = '$($currentcmdletparameters -join ''',''')'")
 
             if ($currentFile) {
-                Out-File -InputObject $currentTestFile -FilePath $DevelopmentPath\tests\$($t.inputobject).Tests.ps1 -Encoding utf8 -Append
+                Out-File -InputObject $currentTestFile -FilePath $DevelopmentPath\tests\$($t.inputobject).Tests.ps1 -Encoding utf8 -Append -NoNewline
             }
             else {
-                Out-File -InputObject $currentTest -FilePath $DevelopmentPath\tests\$($t.inputobject).Tests.ps1 -Encoding utf8
+                Out-File -InputObject $currentTest -FilePath $DevelopmentPath\tests\$($t.inputobject).Tests.ps1 -Encoding utf8 -NoNewline
             }
             }
             catch{
