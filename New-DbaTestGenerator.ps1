@@ -49,15 +49,11 @@ Write-Host -Object "Running $PSCommandPath" -ForegroundColor Cyan
 
 Describe "$CommandName Unit Tests" -Tag 'UnitTests' {
     Context "Validate parameters" {
-        $paramCount = x
-        $defaultParamCount = x
-        [object[]]$params = (Get-ChildItem function:\Verb-DbaXyz).Parameters.Keys
-        $knownParameters = 'Computer', 'SqlInstance', 'SqlCredential', 'Credential', 'EnableException'
-        It "Should contain our specific parameters" {
-            ( (Compare-Object -ReferenceObject $knownParameters -DifferenceObject $params -IncludeEqual | Where-Object SideIndicator -eq "==").Count ) | Should Be $paramCount
-        }
-        It "Should only contain $paramCount parameters" {
-            $params.Count - $defaultParamCount | Should Be $paramCount
+        [object[]]$params = (Get-Command $CommandName).Parameters.Keys | Where-Object {$_ -notin ('whatif', 'confirm')}
+        [object[]]$knownParameters = 'Computer', 'SqlInstance', 'SqlCredential', 'Credential', 'EnableException'
+        $knownParameters += [System.Management.Automation.PSCmdlet]::CommonParameters
+        It "Should only contain our specific parameters" {
+            (@(Compare-Object -ReferenceObject ($knownParameters | Where-Object {$_}) -DifferenceObject $params).Count ) | Should Be 0
         }
     }
 }
@@ -82,25 +78,13 @@ Describe "$CommandName Unit Tests" -Tag 'UnitTests' {
             }
             $currentTest = $sampleTest
             $currentcmdletparameters = $currentcmdlet.Parameters.Keys.Where( {$_ -notin $commonParameters})
-
-            $currentTest = $currentTest.Replace('$paramCount = x', "`$paramCount = $($currentcmdletparameters.count)")
-
-
-            if ($currentcmdlet.Parameters.keys.Contains('WhatIf')) {
-                $currentTest = $currentTest.Replace('$defaultParamCount = x', '$defaultParamCount = 13')
-            }
-            else {
-                $currentTest = $currentTest.Replace('$defaultParamCount = x', '$defaultParamCount = 11')
-            }
-
-            $currentTest = $currentTest.Replace('Verb-DbaXyz', "$($t.inputobject)")
             $currentTest = $currentTest.Replace("`$knownParameters = 'Computer', 'SqlInstance', 'SqlCredential', 'Credential', 'EnableException'", "`$knownParameters = '$($currentcmdletparameters -join ''',''')'")
 
             if ($currentFile) {
-                Out-File -InputObject $currentTestFile -FilePath $DevelopmentPath\tests\$($t.inputobject).Tests.ps1 -Encoding utf8 -Append
+                Out-File -InputObject $currentTestFile -FilePath $DevelopmentPath\tests\$($t.inputobject).Tests.ps1 -Encoding utf8 -Append -NoNewline
             }
             else {
-                Out-File -InputObject $currentTest -FilePath $DevelopmentPath\tests\$($t.inputobject).Tests.ps1 -Encoding utf8
+                Out-File -InputObject $currentTest -FilePath $DevelopmentPath\tests\$($t.inputobject).Tests.ps1 -Encoding utf8 -NoNewline
             }
             }
             catch{
