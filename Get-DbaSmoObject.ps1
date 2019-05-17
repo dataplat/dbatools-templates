@@ -56,9 +56,7 @@
     [CmdletBinding()]
     param (
         [parameter(Position = 0, Mandatory, ValueFromPipeline)]
-        [Alias("ServerInstance", "SqlServer")]
         [DbaInstance[]]$SqlInstance,
-        [Alias("Credential")]
         [PSCredential]$SqlCredential,
         [string[]]$JobCategory,
         [string[]]$ExcludeJobCategory,
