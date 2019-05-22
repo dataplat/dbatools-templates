@@ -60,7 +60,6 @@
         [PSCredential]$SqlCredential,
         [string[]]$JobCategory,
         [string[]]$ExcludeJobCategory,
-        [Alias('Silent')]
         [switch]$EnableException
     )
     process {
