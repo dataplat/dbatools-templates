@@ -60,7 +60,7 @@
         # Check any parameters you need using Test-Bound
         # We **DO NOT** use parameter validation in the param block
         
-        if ( (Test-Bound SqlInstance -Not) -and (Test-Bound InputObject -Not) {
+        if ( (Test-Bound SqlInstance -Not) -and (Test-Bound InputObject -Not) ) {
             Stop-Function -Message "You must pipe in a Noun or provide an SqlInstance"
             return
         }
