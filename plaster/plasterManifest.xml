@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<plasterManifest
+  schemaVersion="1.1"
+  templateType="Item" xmlns="http://www.microsoft.com/schemas/PowerShell/Plaster/v1">
+  <metadata>
+    <name>NewDbaCmdlet</name>
+    <id>1f8a72dc-4f4b-40ac-95a5-73d3c8a3cd57</id>
+    <version>0.0.1</version>
+    <title>NewDbaCmdlet</title>
+    <description>Create file and tests for DbaFunction</description>
+    <author>JoshCorr</author>
+    <tags>Functions, Tests</tags>
+  </metadata>
+  <parameters>
+        <parameter name='Verb'
+                   type='text'
+                   prompt='The action this cmdlet will take (Verb without dash)'/>
+
+        <parameter name='Noun'
+                   type='text'
+                   prompt='The element this cmdlet will interact with (Noun without dba or dash)'/>
+
+        <parameter name='Author'
+                   type='user-fullname'
+                   prompt='Who is authoring this function'/>
+
+        <parameter name='Twitter'
+                   type='text'
+                   prompt='What is your Twitter Handle (without @)'/>
+
+        <parameter name='FunctionType'
+                   type='choice'
+                   prompt='If your creating a function, where will this be used:'
+                   default='1'
+                   store='text' >
+            <choice label='&amp;External'
+                    help="This function will be exposed to be used by users."
+                    value="functions"/>
+            <choice label='&amp;Internal'
+                    help="This function will be used by other functions and not by users directly."
+                    value="internal\functions"/>
+        </parameter>
+  </parameters>
+
+  <content>
+        <message condition="(Test-Path $PLASTER_DestinationPathfunctions\${PLASTER_PARAM_verb}-Dba${PLASTER_PARAM_noun}.ps1)"> Checking for the file </message>
+        <message condition="$PLASTER_PARAM_FunctionType -eq 'internal\functions'">Generating Internal Functions</message>
+        <message condition="$PLASTER_PARAM_FunctionType -eq 'functions'">Generating External Functions</message>
+
+        <file condition="$PLASTER_PARAM_verb -eq 'Add'"
+                      source='..\functions\Add-Noun.ps1'
+                      destination='${PLASTER_PARAM_FunctionType}\${PLASTER_PARAM_verb}-Dba${PLASTER_PARAM_noun}.ps1' />
+
+        <file condition="$PLASTER_PARAM_verb -eq 'Copy'"
+                      source='..\functions\Copy-Noun.ps1'
+                      destination='${PLASTER_PARAM_FunctionType}\${PLASTER_PARAM_verb}-Dba${PLASTER_PARAM_noun}.ps1' />
+
+        <file condition="$PLASTER_PARAM_verb -eq 'Get'"
+                      source='..\functions\Get-Noun.ps1'
+                      destination='${PLASTER_PARAM_FunctionType}\${PLASTER_PARAM_verb}-Dba${PLASTER_PARAM_noun}.ps1' />
+
+        <file condition="$PLASTER_PARAM_verb -eq 'Remove'"
+                      source='..\functions\Remove-Noun.ps1'
+                      destination='${PLASTER_PARAM_FunctionType}\${PLASTER_PARAM_verb}-Dba${PLASTER_PARAM_noun}.ps1' />
+
+        <file condition="$PLASTER_PARAM_verb -eq 'Set'"
+                      source='..\functions\Set-Noun.ps1'
+                      destination='${PLASTER_PARAM_FunctionType}\${PLASTER_PARAM_verb}-Dba${PLASTER_PARAM_noun}.ps1' />
+
+        <file condition="$PLASTER_PARAM_verb -eq 'Test'"
+                      source='..\functions\Test-Noun.ps1'
+                      destination='${PLASTER_PARAM_FunctionType}\${PLASTER_PARAM_verb}-Dba${PLASTER_PARAM_noun}.ps1' />
+
+        <file condition="$PLASTER_PARAM_verb -notin @('Add','Copy','Get','Remove','Set','Test')"
+                      source='..\functions\Test-Noun.ps1'
+                      destination='${PLASTER_PARAM_FunctionType}\${PLASTER_PARAM_verb}-Dba${PLASTER_PARAM_noun}.ps1' />
+
+
+        <message>Modifying the function</message>
+
+        <modify path='${PLASTER_PARAM_FunctionType}\${PLASTER_PARAM_verb}-Dba${PLASTER_PARAM_noun}.ps1' encoding='UTF8'>
+                <replace>
+                        <original>(?s)(\w+-\w+)</original>
+                        <substitute expand='true'>${PLASTER_PARAM_verb}-Dba${PLASTER_PARAM_noun}</substitute>
+                </replace>
+                <replace>
+                        <original>(?s)(TwitterHandle)</original>
+                        <substitute expand='true'>${PLASTER_PARAM_Twitter}</substitute>
+                </replace>
+                <replace>
+                        <original>(?s)(Your\sname)</original>
+                        <substitute expand='true'>${PLASTER_PARAM_Author}</substitute>
+                </replace>
+                <replace>
+                        <original>(?s)(Copyright\: \(c\) 2018)</original>
+                        <substitute expand='true'>Copyright: (c) ${PLASTER_Year}</substitute>
+                </replace>
+        </modify>
+
+
+        <message>Creating test file</message>
+        <file source='..\tests\Verb-Noun.Tests.ps1'
+              destination='tests\${PLASTER_PARAM_verb}-Dba${PLASTER_PARAM_noun}.Tests.ps1' />
+
+        <message>Files have been created, but you will need to customize tests for your function</message>
+
+  </content>
+</plasterManifest>
