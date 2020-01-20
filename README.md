@@ -17,9 +17,9 @@ Using Plaster to get started
 
 In order to speed up developing your cmdlet you may use the plaster template included in this repo.
 
-`Install-Module Plaster`
-`Invoke-Plaster -TemplatePath C:\code\dbatools-templates\plaster\ -DestinationPath C:\code\dbatools\`
-Answer the Questions, or hit enter for the defaults
+`Install-Module Plaster`  
+`Invoke-Plaster -TemplatePath C:\code\dbatools-templates\plaster\ -DestinationPath C:\code\dbatools\`  
+Answer the Questions, or hit enter for the defaults  
 ```
 The action this cmdlet will take (Verb without dash): Test
 The element this cmdlet will interact with (Noun without dba or dash): Something
